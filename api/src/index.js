@@ -28,18 +28,24 @@ api.post(`${URL.POST_SIGN_UP}` , async (req, res, next) => {
   }
 })
 //LOGIN
-api.get(`${URL.GET_SIGN_IN}`,  async (req, res, next) => {
-    let sql = `SELECT * FROM users WHERE name = '${req.body.name}' `;
-    const result = db.query(sql, async function(err, res){
-      if(err){
-        console.log("error: ", err)
-      }else{
-        const checkPassword = await bycrypt.compare(req.body.password, res[0].password)
-        if(res[0].email == req.body.email && checkPassword ) console.log(`${res[0].name} vous êtes connecté`)
-        else console.log("Sorry, we don't know this user")
+api.post(`${URL.GET_SIGN_IN}`,  async (req, res, next) => {
+  let sql = `SELECT * FROM users WHERE email = '${req.body.email}' `;
+  const result = db.query(sql, async function(err, result){
+    if(err){
+      console.log("error: ", err)
+    }else{
+      const checkPassword = await bycrypt.compare(req.body.password, result[0].password)
+      if(checkPassword){
+        const user = {
+          name: result[0].name,
+          email: result[0].email,
+          password: result[0].password
+        }
+       res.json(user).status(200)
       }
-    })
-    res.json("ok").status(200)
+      else res.json("Sorry, we don't know this user").status(400)
+    }
+  })
 })
 
 api.listen(PORT)

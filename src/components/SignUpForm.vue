@@ -11,7 +11,6 @@
 
 <script>
 import axios from "axios"
-// import { use } from 'vue/types/umd'
 import { POST_SING_UP } from "../../config/routesRequest"
 
 export default {

@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// ROUTES API 
-
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
@@ -13,10 +11,16 @@ export const store = new Vuex.Store({
     MUT_POST(state, user){
       state.users.push(user)
     },
+    MUT_GET(state, user){
+      state.users = user
+    },
   },
   actions: {
     ACTION_POST({commit}, data){
       commit('MUT_POST', data)
+    },
+    ACTION_GET({commit}, data){
+      commit('MUT_GET', data)
     },
   },
 })
