@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld />
+    <MyHeader />
+    <MyJumbotron 
+      :route="$route.fullPath"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// COMPONENTS
+import MyHeader from './components/layout/MyHeader.vue'
+import MyJumbotron from './components/MyJumbotron.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components: { MyHeader, MyJumbotron },
+  data (){
+    return {
+      state: ""
+    }
   }
 }
 </script>
