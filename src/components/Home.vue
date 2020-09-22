@@ -1,10 +1,8 @@
 <template>
   <div>
-    <b-jumbotron>
-      <router-view
-        :route="route"
-      />
-    </b-jumbotron>
+    <p>you'are conneted</p>
+  <div>
+</div>
   </div>
 </template>
 
