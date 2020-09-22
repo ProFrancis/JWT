@@ -1,0 +1,27 @@
+###
+
+POST http://localhost:8000/sign-in
+Content-Type: application/json
+
+{
+  "email": "fr@gmail.com",
+  "password": "aaa"
+}
+
+###
+
+POST http://localhost:8000/token
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZnIiLCJlbWFpbCI6ImZyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA3JFk4VU41ZUdyNjBQdzhZa1ZWSU54VGVKUnBNMFFJbnVwTHZQOXpnQjFNNXVhQkluZUhIQ1VTIiwiaWF0IjoxNjAwODEwMTExfQ.h2aA8vvlGybnrgx9dwM5t1WRsotvQaZTN7hejW8hcuA"
+}
+
+###
+
+DELETE http://localhost:8000/logout
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZnIiLCJlbWFpbCI6ImZyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA3JFk4VU41ZUdyNjBQdzhZa1ZWSU54VGVKUnBNMFFJbnVwTHZQOXpnQjFNNXVhQkluZUhIQ1VTIiwiaWF0IjoxNjAwODEwMTExfQ.h2aA8vvlGybnrgx9dwM5t1WRsotvQaZTN7hejW8hcuA"
+}

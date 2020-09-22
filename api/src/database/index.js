@@ -7,7 +7,7 @@ var con = mysql.createConnection({
   database: "jwt",
 });
 
-con.connect(function(err) {
+con.connect(async function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
