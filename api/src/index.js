@@ -39,7 +39,7 @@ api.get(`${URL.GET_SING_IN}`,  async (req, res, next) => {
         else console.log("Sorry, we don't know this user")
       }
     })
-    res.send()
+    res.json("ok").status(200)
 })
 
 api.listen(PORT)
