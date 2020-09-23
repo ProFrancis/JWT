@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <form>
-      <input type="name" placeholder="name" v-model="name">
-      <input type="email" placeholder="email" v-model="email">
-      <input type="text" placeholder="password" v-model="password">
-      <button @click="signUp(name, email, password)">Sing-Up</button>
+  <div class="container__form container--signup">
+    <form action="#" class="form" id="form1">
+      <h2 class="form__title">Sign Up</h2>
+      <input type="text" placeholder="Name" class="input" v-model="name"/>
+      <input type="email" placeholder="Email" class="input" v-model="email"/>
+      <input type="password" placeholder="Password" class="input" v-model="password" />
+      <button class="btn" @click="signUp(name, email, password)">Sign Up</button>
     </form>
   </div>
 </template>

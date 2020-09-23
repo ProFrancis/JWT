@@ -1,0 +1,110 @@
+:root {
+  --main: #1B8798;
+  --accent: #7818a1;
+  --white: #f2f1f4;
+  --gray: #d8d3d9;
+  --darkGray: #1a0f13;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.text--line {
+  font-size: 10rem;
+}
+
+.text-copy {
+  fill: none;
+  stroke: white;
+  stroke-dasharray: 7% 28%;
+  stroke-width: 5px;
+  -webkit-animation: stroke-offset 7s infinite linear;
+          animation: stroke-offset 7s infinite linear;
+}
+
+.text-copy:nth-child(1) {
+  stroke: #10131f;
+  stroke-dashoffset: 7%;
+}
+
+.text-copy:nth-child(2) {
+  stroke: #5d9790;
+  stroke-dashoffset: 14%;
+}
+
+.text-copy:nth-child(3) {
+  stroke: #333012;
+  stroke-dashoffset: 21%;
+}
+
+.text-copy:nth-child(4) {
+  stroke: #d3c548;
+  stroke-dashoffset: 28%;
+}
+
+.text-copy:nth-child(5) {
+  stroke: #1a0f0b;
+  stroke-dashoffset: 35%;
+}
+
+@-webkit-keyframes stroke-offset {
+  50% {
+    stroke-dashoffset: 35%;
+    stroke-dasharray: 0 87.5%;
+  }
+}
+
+@keyframes stroke-offset {
+  50% {
+    stroke-dashoffset: 35%;
+    stroke-dasharray: 0 87.5%;
+  }
+}
+
+.link {
+  color: var(--darkgray);
+  display: block;
+  font-size: 19px;
+  line-height: 0;
+  outline: none;
+  padding: 1.25rem;
+  position: relative;
+  text-decoration: none;
+  -webkit-transition: color 250ms ease;
+  transition: color 250ms ease;
+  cursor: pointer;
+}
+
+.link::before {
+  background-color: var(--main);
+  border-radius: 100%;
+  content: "";
+  display: block;
+  left: -1px;
+  opacity: 0.5;
+  padding: 0.75rem;
+  position: absolute;
+  margin: -12px 0px 0px 9px;
+  -webkit-transition: all 250ms ease;
+  transition: all 250ms ease;
+  width: 2rem;
+  height: 2rem;
+}
+
+.link:hover:before {
+  border-radius: 4px;
+  opacity: 0.9;
+  width: 82%;
+}
+
+.link:hover {
+  color: var(--white);
+}
+
+.link__text {
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+}
+/*# sourceMappingURL=styles.css.map */

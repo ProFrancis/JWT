@@ -14,12 +14,12 @@ var URL = require('./routes');
 
 // MIDLE
 api.use(cors());
-// api.use(express.json());
 api.use(BodyParser.json());
 api.use(BodyParser.urlencoded({ extended: true }));
 
 let refreshTokens = []
 
+// POST TOKEN
 api.post('/token', (req, res) => {
   const refreshToken = req.body.token 
   if(refreshToken == null) return res.sendStatus(401)
@@ -42,6 +42,7 @@ api.post(`${URL.POST_SIGN_UP}` , async (req, res) => {
     res.status(500).send("cannot posted --> ",err)
   }
 })
+
 //LOGIN
 api.post(`${URL.GET_SIGN_IN}`, async (req, res) => {
   const autHeader = req.headers.authorization
@@ -50,7 +51,11 @@ api.post(`${URL.GET_SIGN_IN}`, async (req, res) => {
     if(result === null ) return res.status(404).send('cannot find user')
     try{
       if(await bycrypt.compare(req.body.password, result[0].password)){
-        const user = { name: result[0].name, email: result[0].email, password: result[0].password }
+        const user = { 
+          name: result[0].name, 
+          email: result[0].email, 
+          password: result[0].password 
+        }
         const accessToken = generateAccessToken(user)
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
         refreshTokens.push(refreshToken)
@@ -60,7 +65,7 @@ api.post(`${URL.GET_SIGN_IN}`, async (req, res) => {
         }).status(200)
       }
     }catch{
-      res.status(500).send("Sorry, we don't know this user ",err)
+      res.status(500).send("Sorry, we don't know this user ", err)
     }
   })
 })

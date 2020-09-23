@@ -1,10 +1,8 @@
 <template>
   <div>
-    <b-jumbotron>
-      <router-view
-        :route="route"
-      />
-    </b-jumbotron>
+    <router-view
+      :route="route"
+    />
   </div>
 </template>
 
@@ -15,3 +13,7 @@ export default {
   }
 }
 </script>
+
+<style >
+
+</style>

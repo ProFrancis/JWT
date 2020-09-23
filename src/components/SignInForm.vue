@@ -1,10 +1,11 @@
 <template>
   <div>
-    <form>
-      <input type="email" placeholder="email" v-model="email">
-      <input type="text" placeholder="password" v-model="password">
-      <button @click="getUser(email, password)">connexion</button>
-    </form>
+    <form action="#" class="form" id="form2">
+      <h2 class="form__title">Sign In</h2>
+      <input type="email" placeholder="Email" class="input" v-model="email" />
+      <input type="password" placeholder="Password" class="input" v-model="password"/>
+      <button class="btn" @click="getUser(email, password)" >Sign In</button>
+		</form>
     <div>
 </div>
   </div>
@@ -34,8 +35,8 @@ export default {
       try{
         const result = await axios.post(`${GET_SIGN_UP}`, user)
         if(result.data.email){
-
           this.$store.dispatch('ACTION_GET', user)
+          // this.$router.push('FormHandler');
         }else console.log(" ERROR FIND ")
       }catch(error){
         console.error("ERROR GET USER ----> ", error)
