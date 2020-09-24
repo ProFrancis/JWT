@@ -4,8 +4,12 @@
       <h2 class="form__title">Sign Up</h2>
       <input type="text" placeholder="Name" class="input" v-model="name"/>
       <input type="email" placeholder="Email" class="input" v-model="email"/>
-      <input type="password" placeholder="Password" class="input" v-model="password" />
-      <button class="btn" @click="signUp(name, email, password)">Sign Up</button>
+      <input type="password" placeholder="Password" class="input" v-model="password"/>
+      <div class="okok">
+        <div class="link">
+          <span class="link__text" @click="signUp()">Sign Up</span>
+        </div>
+      </div>
     </form>
   </div>
 </template>

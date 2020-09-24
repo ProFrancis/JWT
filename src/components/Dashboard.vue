@@ -1,15 +1,12 @@
 <template>
   <div>
-    <p>you'are conneted</p>
-  <div>
-</div>
+    <h1>Dashboard</h1>
   </div>
 </template>
 
 <script>
+
 export default {
-  props: {
-    route: String,
-  }
+  name: "Dashboard"
 }
 </script>
