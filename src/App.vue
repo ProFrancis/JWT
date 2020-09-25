@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="this.$route.fullPath == '/'">
-      <MyHeader />
-    </div>
-    <MyJumbotron 
+    <router-view
       :route="$route.fullPath"
     />
   </div>

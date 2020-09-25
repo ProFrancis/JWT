@@ -13,23 +13,17 @@
         <use xlink:href="#s-text" class="text-copy"></use>     
       </g>
     </svg>
-    <Home />
   </div>
 </template>
 
 <script>
-import Home from '../Home'
 
 export default {
   name: 'MyHeaders',
-  components: { Home }
 }
 </script>
 
 <style scoped>
-@import url('./../../assets/style.css');
-@import url('./../../assets/styles.css');
-
 h1{
     padding: 1rem 15rem 1rem 15rem;
     visibility: hidden;

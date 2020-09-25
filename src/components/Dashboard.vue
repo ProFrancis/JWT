@@ -27,7 +27,7 @@ export default {
       try{
         await axios.delete(DELETE_TOKEN + `/${this.token[0]}`)
         this.$store.dispatch('AUTH_LOGOUT')
-        this.$router.push({ path: '/'})
+        this.$router.push( '/')
         console.log("PUST ")
 
       }catch(err){

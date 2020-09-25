@@ -23,9 +23,8 @@ let router = new Router({
       }
     },
     {
-      path: "/404",
-      alias: "*",
-      name: "notFound",
+      path: "*",
+      name: "NotFound",
       component: () => 
         import("./components/NotFound.vue")
     }
@@ -34,9 +33,10 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requiresAuth)){
-    if(!store.state.token[0]) next("/")
+    if(!store.state.token[0]) next("/") 
     else next()
-  }
+  } next()
+
 })
 
 export default router;

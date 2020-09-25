@@ -1,4 +1,6 @@
 <template>
+  <div>
+  <Myheader/>
   <div style="margin-top:-100px" class="container right-panel-active ">
     <SignUp/>
     <SignIn/>
@@ -13,14 +15,16 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 import SignUp from './SignUpForm'
 import SignIn from './SignInForm'
+import Myheader from './layout/MyHeader'
 
 export default {
-  components: { SignUp, SignIn },
+  components: { SignUp, SignIn, Myheader },
   props: {
     route: String,
   },
