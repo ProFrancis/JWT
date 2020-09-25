@@ -44,16 +44,3 @@ export default {
   }
 }
 </script>
-
-<style>
-@import url('./../assets/style.css');
-.marge{
-  margin-top: -100px;
-};
-.okok{
-	align-items: center;
-	display: grid;
-	height: 100%;
-	justify-content: center;
-}
-</style>

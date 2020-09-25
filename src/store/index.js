@@ -5,22 +5,35 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    users: []
+    user: [],
+    token: []
   },
   mutations: {
-    MUT_POST(state, user){
-      state.users.push(user)
+    MUT_POST(state, data){
+      state.user.push(data.user)
+      state.token.push(data.accessToken)
     },
-    MUT_GET(state, user){
-      state.users = user
+    AUTH_SUCCESS(state, data){
+      state.user = data.user
+      state.token = data.accessToken
     },
+    AUTH_LOGOUT_SUCCESS(state){
+      state.token = []
+    }
   },
   actions: {
     ACTION_POST({commit}, data){
       commit('MUT_POST', data)
     },
-    ACTION_GET({commit}, data){
-      commit('MUT_GET', data)
+    AUTH_REQUEST({commit}, data){
+      commit('AUTH_SUCCESS', data)
+    },
+    AUTH_LOGOUT({commit} ){
+      commit('AUTH_LOGOUT_SUCCESS')
     },
   },
+  getters: {
+    token: (state) => state.token,
+    user: (state) => state.user
+  }
 })

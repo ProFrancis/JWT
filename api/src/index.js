@@ -59,7 +59,8 @@ api.post(`${URL.GET_SIGN_IN}`, async (req, res) => {
         const accessToken = generateAccessToken(user)
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
         refreshTokens.push(refreshToken)
-        res.json({
+        res.json({ 
+          user: user,
           accessToken: accessToken,
           refreshToken: refreshToken
         }).status(200)
@@ -71,8 +72,10 @@ api.post(`${URL.GET_SIGN_IN}`, async (req, res) => {
 })
 
 // LOGOUT
-api.delete('/logout', (req, res) => {
-  refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+api.delete('/logout/:token', (req, res) => {
+  console.log("IN API --> ", req.params.token)
+  refreshTokens = refreshTokens.filter(token => token !== req.params.token)
+  console.log("IN API TOKETOKE --> ", refreshTokens)
   res.sendStatus(204)
 })
 

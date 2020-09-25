@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <MyHeader />
+    <div v-if="this.$route.fullPath == '/'">
+      <MyHeader />
+    </div>
     <MyJumbotron 
       :route="$route.fullPath"
     />
@@ -19,12 +21,6 @@ export default {
     return {
       state: ""
     }
-  }
+  },
 }
 </script>
-
-<style>
-#app {
-
-}
-</style>

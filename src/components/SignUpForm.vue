@@ -38,7 +38,7 @@ export default {
     },
     async postRequest(user) {
       try{
-        await axios.post(`${POST_SING_UP}`, user)
+        await axios.post(POST_SING_UP, user)
         this.$store.dispatch('ACTION_POST', user)
       }catch(error){
         console.error("ERROR POST USER ----> ", error)

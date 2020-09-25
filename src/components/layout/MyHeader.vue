@@ -27,10 +27,20 @@ export default {
 </script>
 
 <style scoped>
+@import url('./../../assets/style.css');
 @import url('./../../assets/styles.css');
 
 h1{
     padding: 1rem 15rem 1rem 15rem;
     visibility: hidden;
 };
+.marge{
+  margin-top: -100px;
+};
+.okok{
+	align-items: center;
+	display: grid;
+	height: 100%;
+	justify-content: center;
+}
 </style>

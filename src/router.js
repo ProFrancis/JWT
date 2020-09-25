@@ -1,28 +1,42 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import SignInForm from './components/SignInForm.vue'
-import SignUpForm from './components/SignUpForm.vue'
+import Home from './components/Home.vue'
 import Dashboard from './components/Dashboard.vue'
-
+import { store } from './store'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
+  mode: 'history',
   routes: [
     { 
-      path: '/sign-in', 
-      name: "sign-in",
-      component: SignInForm 
-    },
-    {
-      path: '/sign-up',
-      name: 'sign-up',
-      component: SignUpForm
+      path: '/', 
+      name: "home",
+      component: Home,
     },
     {
       path: '/Dashboard',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: "/404",
+      alias: "*",
+      name: "notFound",
+      component: () => 
+        import("./components/NotFound.vue")
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)){
+    if(!store.state.token[0]) next("/")
+    else next()
+  }
+})
+
+export default router;
