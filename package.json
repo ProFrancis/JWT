@@ -29,6 +29,7 @@
     "vivus": "^0.4.5",
     "vue": "^2.6.12",
     "vue-router": "^3.4.3",
+    "vuelidate": "^0.7.5",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
