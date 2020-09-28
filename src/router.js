@@ -18,9 +18,9 @@ let router = new Router({
       path: '/Dashboard',
       name: 'Dashboard',
       component: Dashboard,
-      meta: {
-        requiresAuth: true,
-      }
+      // meta: {
+      //   requiresAuth: true,
+      // }
     },
     {
       path: "*",
@@ -36,7 +36,6 @@ router.beforeEach((to, from, next) => {
     if(!store.state.token[0]) next("/") 
     else next()
   } next()
-
 })
 
 export default router;
