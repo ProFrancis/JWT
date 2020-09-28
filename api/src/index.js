@@ -11,6 +11,7 @@ const PORT = 8000
 // UTILS
 var db = require('./database');
 var URL = require('./routes');
+const { query } = require('./database')
 
 // MIDLE
 api.use(cors());
@@ -31,6 +32,17 @@ api.post('/token', (req, res) => {
   })
 });
 
+// CONTACTS 
+api.post(`${URL.POST_CONTACTS}`, async(req, res) => {
+  try{
+    addTable()
+    db.query(`INSERT INTO contacts (name, email, id_user_affiliate) VALUES ('${req.body.name}','${req.body.email}','${req.body.id
+    }')`)
+    res.json("Success contact").status(200)
+  }catch(err){
+    res.status(500).send("Cannot post contact ---> ", err)
+  }
+})
 // REGISTER
 api.post(`${URL.POST_SIGN_UP}` , async (req, res) => {
   try{
@@ -78,6 +90,18 @@ api.delete('/logout/:token', (req, res) => {
   console.log("IN API TOKETOKE --> ", refreshTokens)
   res.sendStatus(204)
 })
+
+// UTILS
+
+function addTable(){
+  db.query(`CREATE TABLE IF NOT EXISTS contacts (
+    id int(11) NOT NULL auto_increment,   
+    name varchar(100) NOT NULL,       
+    email varchar(100) NOT NULL,     
+    id_user_affiliate int(11) NOT NULL,     
+     PRIMARY KEY (id)
+  )`) 
+}
 
 function authenticateJWT(req, res, next ){
   const autHeader = req.headers['authorization']

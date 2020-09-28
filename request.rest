@@ -8,6 +8,30 @@ Content-Type: application/json
   "password": "aaa"
 }
 
+
+###
+
+POST http://localhost:8000/add-new-contact
+Content-Type: application/json
+
+{
+  "name": "aaa",
+  "email": "bouh@gmail.com",
+  "id": 4
+}
+
+
+###
+
+GET http://localhost:8000/get-contacts
+Content-Type: application/json
+
+{
+  "email": "fr@gmail.com",
+  "password": "aaa"
+}
+
+
 ###
 
 POST http://localhost:8000/token
