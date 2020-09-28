@@ -43,6 +43,19 @@ api.post(`${URL.POST_CONTACTS}`, async(req, res) => {
     res.status(500).send("Cannot post contact ---> ", err)
   }
 })
+
+// GET CONTACTS
+api.get(`${URL.GET_CONTACTS}`, async(req, res) => {
+    db.query(` SELECT * from contacts WHERE contacts.id_user_affiliate = 4`, async function(err, result) {
+     try{
+      res.json({ contacts: result[0] }).status(200)
+     }catch(err){
+      res.send(500).send("Cannot add this contact")
+     }
+    })
+})
+
+
 // REGISTER
 api.post(`${URL.POST_SIGN_UP}` , async (req, res) => {
   try{
@@ -59,7 +72,7 @@ api.post(`${URL.POST_SIGN_UP}` , async (req, res) => {
 api.post(`${URL.GET_SIGN_IN}`, async (req, res) => {
   const autHeader = req.headers.authorization
   console.log(autHeader)
-  const result = db.query(`SELECT * FROM users WHERE email = '${req.body.email}' `, async function(err, result){
+  db.query(`SELECT * FROM users WHERE email = '${req.body.email}' `, async function(err, result){
     if(result === null ) return res.status(404).send('cannot find user')
     try{
       if(await bycrypt.compare(req.body.password, result[0].password)){

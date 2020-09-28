@@ -26,12 +26,6 @@ Content-Type: application/json
 GET http://localhost:8000/get-contacts
 Content-Type: application/json
 
-{
-  "email": "fr@gmail.com",
-  "password": "aaa"
-}
-
-
 ###
 
 POST http://localhost:8000/token
