@@ -45,8 +45,8 @@ api.post(`${URL.POST_CONTACTS}`, async(req, res) => {
 })
 
 // GET CONTACTS
-api.get(`${URL.GET_CONTACTS}`, async(req, res) => {
-    db.query(` SELECT * from contacts WHERE contacts.id_user_affiliate = 4`, async function(err, result) {
+api.get(`${URL.GET_CONTACTS}/:id`, async(req, res) => {
+    db.query(` SELECT * from contacts WHERE contacts.id_user_affiliate = ${req.params.id}`, async function(err, result) {
      try{
       res.json({ contacts: result[0] }).status(200)
      }catch(err){
@@ -54,7 +54,6 @@ api.get(`${URL.GET_CONTACTS}`, async(req, res) => {
      }
     })
 })
-
 
 // REGISTER
 api.post(`${URL.POST_SIGN_UP}` , async (req, res) => {
