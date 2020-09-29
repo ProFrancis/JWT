@@ -16,9 +16,6 @@ import { DELETE_TOKEN } from "../../config/routesRequest"
 
 export default {
   name: "ConnectedHeader",
-   data () {
-    return {}
-  },
   computed: mapGetters(['token', 'user']),
   methods: {
     async logout(){
@@ -26,7 +23,6 @@ export default {
         await axios.delete(DELETE_TOKEN + `/${this.token[0]}`)
         this.$store.dispatch('AUTH_LOGOUT')
         this.$router.push( '/')
-        console.log("PUST ")
       }catch(err){
         console.error(err)
       }

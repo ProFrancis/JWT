@@ -1,9 +1,9 @@
 <template>
   <div>
     <form>
-      <input type="text" placeholder="name" v-model="name">
+      <input type="text" v-model="name">
       <input type="email" placeholder="email" v-model="email" >
-      <span @click="post_contact">Add</span>
+      <span @click="add_contact">Add</span>
     </form>
   </div>
 </template>
@@ -30,14 +30,21 @@ export default {
   //   email: { required, email}
   // },
   methods: {
-    post_contact: async function(){
-      try{
+    add_contact: async function(){
       let { id, name, email } = this
-      const decode = await jwt.decode(this.token, { complete: true})
+      let decode = await jwt.decode(this.token, { complete: true})
       id = decode.payload.id
-      console.log(decode.payload)
-        await axios.post(POST_CONTACT, { name, email, id})
-        // this.$store.dispatch('ACTION_POST', contact)
+      let contact = {
+        id: id,
+        name: name,
+        email: email
+      }
+      this.post_contact(contact)
+    },
+    post_contact: async function(state){
+      try{
+        await axios.post(POST_CONTACT, state)
+        this.$store.dispatch('ACTION_POST_CONTACT', state)
       }catch(err){
         console.error("ERROR POST CONTACT --> ", err)
       }

@@ -37,11 +37,12 @@ api.post('/token', (req, res) => {
 api.post(`${URL.POST_CONTACTS}`, async(req, res) => {
   try{
     addTable()
+    console.log("IN API --> ", req.body)
     db.query(`INSERT INTO contacts (name, email, id_user_affiliate) VALUES ('${req.body.name}','${req.body.email}','${req.body.id}')`)
-    res.json("Success contact").status(200)
+    res.json("SUCCESS POST CONTACT").status(200)
   }catch(err){
-    res.status(500).send("Cannot post contact ---> ", err)
-  }
+    res.send(500).json(err)
+  }      
 })
 
 // GET CONTACTS
@@ -127,6 +128,6 @@ function authenticateJWT(req, res, next ){
 }
 
 function generateAccessToken(user){
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s'})
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '200s'})
 }
 api.listen(PORT)

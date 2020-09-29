@@ -30,8 +30,8 @@ export default {
     }
   },
   validations: {
-      email: { required ,email},
-      password: { required,  minLength: minLength(2)}
+    email: { required ,email},
+    password: { required,  minLength: minLength(2)}
   },
   methods: {
     async getUserRequest() {
