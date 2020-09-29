@@ -19,7 +19,7 @@
 
 <script>
 import axios from "axios"
-import { GET_SIGN_UP } from "../../config/routesRequest"
+import { GET_SIGN_IN } from "../../config/routesRequest"
 import { required, email, minLength } from "vuelidate/lib/validators";
 
 export default {
@@ -37,8 +37,8 @@ export default {
     async getUserRequest() {
       try{
         const { email, password } = this
-        const result = await axios.post(GET_SIGN_UP, { email, password})
-        if(result.data.user.email){
+        const result = await axios.post(GET_SIGN_IN, { email, password})
+        if(result.data.payload.email){
           this.$store.dispatch('AUTH_REQUEST', result.data)
           this.$router.push("Dashboard")
         }else console.log("cannot find this email")

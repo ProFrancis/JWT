@@ -15,16 +15,18 @@ POST http://localhost:8000/add-new-contact
 Content-Type: application/json
 
 {
-  "name": "aaa",
-  "email": "bouh@gmail.com",
-  "id": 4
+  "name": "Nav",
+  "email": "Nav@gmail.com",
+  "id": 9
 }
 
 
 ###
 
-GET http://localhost:8000/get-contacts
+GET http://localhost:8000/get-contacts/9
 Content-Type: application/json
+
+
 
 ###
 

@@ -5,16 +5,16 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    user: [],
+    payload: [],
     token: []
   },
   mutations: {
     MUT_POST(state, data){
-      state.user.push(data.user)
+      state.payload.push(data.payload)
       state.token.push(data.accessToken)
     },
     AUTH_SUCCESS(state, data){
-      state.user = data.user
+      state.payload = data.payload
       state.token = data.accessToken
     },
     AUTH_LOGOUT_SUCCESS(state){
@@ -34,6 +34,6 @@ export const store = new Vuex.Store({
   },
   getters: {
     token: (state) => state.token,
-    user: (state) => state.user
+    user: (state) => state.payload
   }
 })

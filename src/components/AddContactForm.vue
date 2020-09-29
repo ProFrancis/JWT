@@ -1,42 +1,42 @@
 <template>
   <div>
     <form>
-      <input type="text" v-model="name">
-      <input type="email" v-model="email" >
-      <button @click="add_contact">Add</button>
+      <input type="text" placeholder="name" v-model="name">
+      <input type="email" placeholder="email" v-model="email" >
+      <span @click="post_contact">Add</span>
     </form>
   </div>
 </template>
 
 <script>
 import axios from "axios"
+import jwt from 'jsonwebtoken'
+import { mapGetters } from 'vuex'
 import { POST_CONTACT } from "../../config/routesRequest"
-import { required, email, minLength } from "vuelidate/lib/validators";
+// import { required, email, minLength } from "vuelidate/lib/validators";
 
 export default {
   name: "AddContactForm",
    data () {
     return {
-      state: '',
-      name: '',
-      email:'',
+      id: "",
+      name: "",
+      email: ""
     }
   },
-  validations: {
-    name: { required, minLength: minLength(2)},
-    email: { required, email}
-  },
+  computed: mapGetters(['token', 'user']),
+  // validations: {
+  //   name: { required, minLength: minLength(2)},
+  //   email: { required, email}
+  // },
   methods: {
-    add_contact: function(name, email) {
-      this.state = {
-        name: name,
-        email: email,
-      }
-      this.post_contact(this.state)
-    },
-    post_contact: async function(contact){
+    post_contact: async function(){
       try{
-        await axios.post(POST_CONTACT, contact)
+      let { id, name, email } = this
+      const decode = await jwt.decode(this.token, { complete: true})
+      id = decode.payload.id
+      console.log(decode.payload)
+        await axios.post(POST_CONTACT, { name, email, id})
         // this.$store.dispatch('ACTION_POST', contact)
       }catch(err){
         console.error("ERROR POST CONTACT --> ", err)

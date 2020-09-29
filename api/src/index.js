@@ -12,6 +12,7 @@ const PORT = 8000
 var db = require('./database');
 var URL = require('./routes');
 const { query } = require('./database')
+const con = require('./database')
 
 // MIDLE
 api.use(cors());
@@ -36,8 +37,7 @@ api.post('/token', (req, res) => {
 api.post(`${URL.POST_CONTACTS}`, async(req, res) => {
   try{
     addTable()
-    db.query(`INSERT INTO contacts (name, email, id_user_affiliate) VALUES ('${req.body.name}','${req.body.email}','${req.body.id
-    }')`)
+    db.query(`INSERT INTO contacts (name, email, id_user_affiliate) VALUES ('${req.body.name}','${req.body.email}','${req.body.id}')`)
     res.json("Success contact").status(200)
   }catch(err){
     res.status(500).send("Cannot post contact ---> ", err)
@@ -46,13 +46,13 @@ api.post(`${URL.POST_CONTACTS}`, async(req, res) => {
 
 // GET CONTACTS
 api.get(`${URL.GET_CONTACTS}/:id`, async(req, res) => {
-    db.query(` SELECT * from contacts WHERE contacts.id_user_affiliate = ${req.params.id}`, async function(err, result) {
-     try{
-      res.json({ contacts: result[0] }).status(200)
-     }catch(err){
-      res.send(500).send("Cannot add this contact")
-     }
-    })
+  db.query(`SELECT contacts.name, contacts.email, contacts.id_user_affiliate FROM contacts INNER JOIN users ON users.id = contacts.id_user_affiliate WHERE id_user_affiliate = ${req.params.id}` , async function(err, result) {
+    try{
+      res.json({result}).status(200)
+    }catch{
+      res.send(500).send("Cannot get all contact", err)
+    }
+  })
 })
 
 // REGISTER
@@ -62,7 +62,7 @@ api.post(`${URL.POST_SIGN_UP}` , async (req, res) => {
     const hashPassword = await bycrypt.hash(req.body.password, salt)
     db.query(`INSERT INTO users (name, email, password) VALUES ('${req.body.name}', '${req.body.email}', '${hashPassword}')`)
     res.json("USER POSTED").status(200)
-  }  catch(err){
+  } catch(err){
     res.status(500).send("cannot posted --> ",err)
   }
 })
@@ -75,16 +75,17 @@ api.post(`${URL.GET_SIGN_IN}`, async (req, res) => {
     if(result === null ) return res.status(404).send('cannot find user')
     try{
       if(await bycrypt.compare(req.body.password, result[0].password)){
-        const user = { 
+        const payload = { 
+          id: result[0].id,
           name: result[0].name, 
           email: result[0].email, 
           password: result[0].password 
         }
-        const accessToken = generateAccessToken(user)
-        const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+        const accessToken = generateAccessToken(payload)
+        const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET)
         refreshTokens.push(refreshToken)
         res.json({ 
-          user: user,
+          payload: payload,
           accessToken: accessToken,
           refreshToken: refreshToken
         }).status(200)
@@ -97,9 +98,7 @@ api.post(`${URL.GET_SIGN_IN}`, async (req, res) => {
 
 // LOGOUT
 api.delete('/logout/:token', (req, res) => {
-  console.log("IN API --> ", req.params.token)
   refreshTokens = refreshTokens.filter(token => token !== req.params.token)
-  console.log("IN API TOKETOKE --> ", refreshTokens)
   res.sendStatus(204)
 })
 
