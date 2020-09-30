@@ -22,12 +22,10 @@ export const store = new Vuex.Store({
       state.token = []
     },
     MUT_POST_CONTACT_SUCCESS(state, data){
-      state.contact.push(data)
+      state.contact.result.push(data)
     },
     MUT_GET_CONTACT_SUCCESS(state, data){
-      console.log("MUT GET CONTACT --> ", data)
       state.contact = data
-      // state.contact.filter(contacts => contacts.id == data.id)
     }
   },
   actions: {

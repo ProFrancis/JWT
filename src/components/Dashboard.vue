@@ -2,18 +2,18 @@
   <div>
     <connectedHeader/>
     <addContactForm/>
-    <contactList/>
+    <listContact/>
   </div>
 </template>
 
 <script>
 import connectedHeader from './ConnectedHeader'
 import addContactForm from './AddContactForm'
-import contactList from './ContactList'
+import listContact from './ListContact'
 
 export default {
   name: "Dashboard",
-  components: { connectedHeader, addContactForm, contactList },
+  components: { connectedHeader, addContactForm, listContact },
    data () {
     return {}
   },

@@ -43,7 +43,9 @@ export default {
     },
     post_contact: async function(state){
       try{
-        await axios.post(POST_CONTACT, state)
+        await axios.post(POST_CONTACT, state , {
+          headers: {'Authorization': `Bearer ${this.token}`}
+        })
         this.$store.dispatch('ACTION_POST_CONTACT', state)
       }catch(err){
         console.error("ERROR POST CONTACT --> ", err)

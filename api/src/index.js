@@ -13,6 +13,7 @@ var db = require('./database');
 var URL = require('./routes');
 const { query } = require('./database')
 const con = require('./database')
+const { Console } = require('console')
 
 // MIDLE
 api.use(cors());
@@ -34,7 +35,7 @@ api.post('/token', (req, res) => {
 });
 
 // CONTACTS 
-api.post(`${URL.POST_CONTACTS}`, async(req, res) => {
+api.post(`${URL.POST_CONTACTS}`,authenticateJWT,  async(req, res) => {
   try{
     addTable()
     console.log("IN API --> ", req.body)
@@ -46,8 +47,8 @@ api.post(`${URL.POST_CONTACTS}`, async(req, res) => {
 })
 
 // GET CONTACTS
-api.get(`${URL.GET_CONTACTS}/:id`, async(req, res) => {
-  db.query(`SELECT contacts.name, contacts.email, contacts.id_user_affiliate FROM contacts INNER JOIN users ON users.id = contacts.id_user_affiliate WHERE id_user_affiliate = ${req.params.id}` , async function(err, result) {
+api.get(`${URL.GET_CONTACTS}/:id`, authenticateJWT, async(req, res) => {
+  db.query(`SELECT contacts.id, contacts.name, contacts.email, contacts.id_user_affiliate FROM contacts INNER JOIN users ON users.id = contacts.id_user_affiliate WHERE id_user_affiliate = ${req.params.id}` , async function(err, result) {
     try{
       res.json({result}).status(200)
     }catch{
@@ -56,8 +57,8 @@ api.get(`${URL.GET_CONTACTS}/:id`, async(req, res) => {
   })
 })
 
-// REGISTER
-api.post(`${URL.POST_SIGN_UP}` , async (req, res) => {
+// REGISTER SIGN UP
+api.post(`${URL.POST_SIGN_UP}`,  async (req, res) => {
   try{
     const salt = await bycrypt.genSalt(7)
     const hashPassword = await bycrypt.hash(req.body.password, salt)
@@ -70,8 +71,6 @@ api.post(`${URL.POST_SIGN_UP}` , async (req, res) => {
 
 //LOGIN
 api.post(`${URL.GET_SIGN_IN}`, async (req, res) => {
-  const autHeader = req.headers.authorization
-  console.log(autHeader)
   db.query(`SELECT * FROM users WHERE email = '${req.body.email}' `, async function(err, result){
     if(result === null ) return res.status(404).send('cannot find user')
     try{
@@ -117,7 +116,7 @@ function addTable(){
 
 function authenticateJWT(req, res, next ){
   const autHeader = req.headers['authorization']
-    const token = autHeader && autHeader.split(' ')[1];
+  const token = autHeader && autHeader.split(' ')[1];
     if(token == null) return res.sendStatus(401) 
 
     jwt.verify(token,  process.env.ACCESS_TOKEN_SECRET, (err, user) => {
